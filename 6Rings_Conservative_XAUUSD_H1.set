@@ -1,0 +1,104 @@
+; 6 Rings EA v2.0 - CONSERVATIVE Settings for XAUUSD H1
+; Created: 2025-01-11
+; Lower risk, higher quality trades only
+; Expected: 1-3 trades/week, lower drawdown
+; Risk per trade: 0.75% (conservative)
+; For accounts: $1,000+ recommended
+
+;==================== DISPLAY / LOGIC MODES ====================
+UseNeutralColors=true
+
+;==================== INDICATOR PARAMETERS ====================
+; MACD - Standard
+MACD_Fast=12
+MACD_Slow=26
+MACD_Signal=9
+MACD_NeutralThreshold=0.05
+
+; KDJ (Stochastic)
+KDJ_Length=9
+KDJ_Smooth=3
+KDJ_NeutralZone=3.5
+
+; RSI
+RSI_Length=14
+RSI_NeutralZone=5.0
+
+; LWR (Williams %R)
+LWR_Length=14
+LWR_NeutralZone=10.0
+
+; BBI
+BBI_Len1=3
+BBI_Len2=6
+BBI_Len3=12
+BBI_Len4=24
+BBI_NeutralPct=0.15
+
+; MTM
+MTM_Length=12
+MTM_PctThreshold=0.3
+
+;==================== WEIGHTED SCORING SYSTEM ====================
+UseWeightedScoring=true
+MACD_Weight=1.5
+KDJ_Weight=1.0
+RSI_Weight=0.9
+LWR_Weight=0.7
+BBI_Weight=1.4
+MTM_Weight=1.5
+
+;==================== ENTRY/EXIT THRESHOLDS (CONSERVATIVE) ====================
+; Higher thresholds = fewer but better quality trades
+BuyEntryMinScore=5.0
+BuyExitMinScore=4.0
+SellEntryMinScore=5.0
+SellExitMinScore=4.0
+UseEdgeTrigger=true
+SustainedSignalBars=3
+EntryCooldownBars=5
+
+;==================== MARKET CONDITION FILTERS ====================
+; ATR Filter - Restrictive
+UseATRFilter=true
+ATR_Period=14
+ATR_MinMultiplier=0.7
+ATR_MaxMultiplier=2.2
+
+; Trend Filter - ENABLED for quality
+UseTrendFilter=true
+TrendTimeframe=4
+TrendMA_Period=50
+
+; Time Filter - ENABLED (London + NY only)
+UseTimeFilter=true
+TradingStartHour=8
+TradingEndHour=22
+
+;==================== RISK MANAGEMENT (CONSERVATIVE) ====================
+; Dynamic Lots - 0.75% risk per trade
+UseDynamicLots=true
+RiskPercentPerTrade=0.75
+FixedLots=0.01
+
+; Stop Loss / Take Profit for XAUUSD
+StopLossPoints=900
+TakeProfitPoints=1800
+
+; Trailing Stop - Wider for bigger trends
+UseTrailingStop=true
+TrailingStopPoints=700
+TrailingStepPoints=250
+
+; Drawdown Protection - Strict limits
+UseMaxDrawdown=true
+MaxDailyLossPercent=3.0
+MaxWeeklyLossPercent=6.0
+
+;==================== TRADING SETTINGS ====================
+MagicNumber=6600066
+OneTradePerSide=true
+MaxSpreadPoints=45
+TradeOnlyOnNewBar=true
+
+EnableDetailedLogging=true
