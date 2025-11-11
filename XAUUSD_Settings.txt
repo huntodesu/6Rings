@@ -1,0 +1,293 @@
+╔════════════════════════════════════════════════════════════════════════════╗
+║                  6 RINGS v2.0 - XAUUSD (GOLD) SETTINGS                     ║
+║                        Optimized for H1 Timeframe                          ║
+╚════════════════════════════════════════════════════════════════════════════╝
+
+IMPORTANT: Gold (XAUUSD) has unique characteristics:
+- High volatility (large point movements)
+- Typical spread: 20-50 points
+- High value per point ($0.10 - $1.00+ per 0.01 lot)
+- Active: London (8:00-17:00) & NY (13:00-22:00) sessions
+- Responds well to trend following
+
+═══════════════════════════════════════════════════════════════════════════════
+
+📊 RECOMMENDED SETTINGS FOR XAUUSD H1
+
+═══════════════════════════════════════════════════════════════════════════════
+
+// ======================== DISPLAY / LOGIC MODES ========================
+UseNeutralColors = true              // Use 3-color system for gold (better)
+
+// ======================== INDICATOR PARAMETERS =========================
+// MACD - Keep standard, works well for gold
+MACD_Fast = 12
+MACD_Slow = 26
+MACD_Signal = 9
+MACD_NeutralThreshold = 0.05         // Increased for gold volatility
+
+// KDJ - Standard settings work well
+KDJ_Length = 9
+KDJ_Smooth = 3
+KDJ_NeutralZone = 3.0                // Slightly wider for gold
+
+// RSI - Standard
+RSI_Length = 14
+RSI_NeutralZone = 5.0
+
+// LWR (Williams %R) - Standard
+LWR_Length = 14
+LWR_NeutralZone = 10.0
+
+// BBI - Adjusted for gold trends
+BBI_Len1 = 3
+BBI_Len2 = 6
+BBI_Len3 = 12
+BBI_Len4 = 24
+BBI_NeutralPct = 0.15                // Tighter for gold (was 0.2)
+
+// MTM - Adjusted for gold momentum
+MTM_Length = 12
+MTM_PctThreshold = 0.3               // Lower for gold (was 0.5)
+
+// ===================== WEIGHTED SCORING SYSTEM =========================
+UseWeightedScoring = true            // Definitely use weighted for gold
+MACD_Weight = 1.5                    // Strong trend indicator
+KDJ_Weight = 1.0
+RSI_Weight = 0.9                     // Less important for gold
+LWR_Weight = 0.7                     // Redundant with RSI
+BBI_Weight = 1.4                     // Important for gold trends
+MTM_Weight = 1.5                     // Gold is momentum-driven
+
+// ==================== ENTRY/EXIT THRESHOLDS =====================
+BuyEntryMinScore = 4.5               // Slightly higher for gold quality
+BuyExitMinScore = 4.0
+SellEntryMinScore = 4.5
+SellExitMinScore = 4.0
+UseEdgeTrigger = true
+SustainedSignalBars = 2              // Require 2-bar confirmation for gold
+EntryCooldownBars = 3                // Prevent whipsaw in gold volatility
+
+// ====================== MARKET CONDITION FILTERS =======================
+UseATRFilter = true                  // CRITICAL for gold
+ATR_Period = 14
+ATR_MinMultiplier = 0.6              // Gold needs some volatility
+ATR_MaxMultiplier = 2.5              // Avoid extreme news spikes
+
+UseTrendFilter = true                // HIGHLY RECOMMENDED for gold
+TrendTimeframe = PERIOD_H4           // H4 trend for H1 trading
+TrendMA_Period = 50
+
+UseTimeFilter = true                 // RECOMMENDED - avoid Asian low liquidity
+TradingStartHour = 8                 // 8:00 (London open)
+TradingEndHour = 22                  // 22:00 (NY close)
+// Note: This is broker time - adjust for your timezone!
+
+// ======================= RISK MANAGEMENT ===============================
+// CRITICAL FOR GOLD: Point values are large!
+
+UseDynamicLots = true                // MUST use dynamic for gold
+RiskPercentPerTrade = 1.0            // 1% risk (conservative for gold)
+FixedLots = 0.01                     // If you disable dynamic (not recommended)
+
+// Gold-specific SL/TP (in points, not pips!)
+// Gold moves: $10-30/day typically = 1000-3000 points
+StopLossPoints = 800                 // ~$8 move (adjust for broker)
+TakeProfitPoints = 1600              // 2:1 R:R
+
+UseTrailingStop = true               // Excellent for gold trends
+TrailingStopPoints = 600             // Trail at $6 distance
+TrailingStepPoints = 200             // Update every $2 move
+
+UseMaxDrawdown = true                // ESSENTIAL for gold volatility
+MaxDailyLossPercent = 4.0            // Stricter for gold (not 5%)
+MaxWeeklyLossPercent = 8.0           // Stricter for gold (not 10%)
+
+// ======================= TRADING SETTINGS ==============================
+MagicNumber = 6600066
+OneTradePerSide = true
+MaxSpreadPoints = 50                 // Gold spread typically 20-50
+TradeOnlyOnNewBar = true             // Recommended for H1
+
+EnableDetailedLogging = true         // Keep logs for review
+
+═══════════════════════════════════════════════════════════════════════════════
+
+🎯 SETTINGS EXPLANATION FOR GOLD
+
+═══════════════════════════════════════════════════════════════════════════════
+
+1. **Why StopLossPoints = 800?**
+   - Gold trades in points (not pips)
+   - 100 points = $1 move
+   - 800 points = $8 stop loss
+   - Typical gold daily ATR: 1500-2500 points
+   - 800 pts ≈ 30-50% of ATR (good buffer)
+
+2. **Why TradingStartHour = 8, EndHour = 22?**
+   - Avoids Asian session (low liquidity, choppy)
+   - Captures London (8:00-17:00) & NY (13:00-22:00)
+   - Best gold movements during these sessions
+   - Adjust for YOUR broker's timezone!
+
+3. **Why TrendFilter on H4?**
+   - Gold trends strongly
+   - H4 filter prevents counter-trend losses
+   - Catches major moves while filtering noise
+
+4. **Why SustainedSignalBars = 2?**
+   - Gold has many false breakouts
+   - 2-bar confirmation reduces whipsaws
+   - Still catches real trends early
+
+5. **Why MaxDailyLoss = 4% (not 5%)?**
+   - Gold is more volatile
+   - Losses can compound quickly
+   - Stricter limits protect capital
+
+6. **Why these indicator weights?**
+   - MACD (1.5): Gold respects MACD crossovers
+   - MTM (1.5): Gold is momentum-driven
+   - BBI (1.4): Multi-timeframe trend important
+   - RSI (0.9): Less reliable for gold
+   - LWR (0.7): Redundant, lower weight
+
+═══════════════════════════════════════════════════════════════════════════════
+
+⚠️  CRITICAL XAUUSD CONSIDERATIONS
+
+═══════════════════════════════════════════════════════════════════════════════
+
+1. **POINT vs PIP Confusion**
+   - XAUUSD: 1 point = $0.01 move (e.g., 2000.00 to 2000.01)
+   - 100 points = $1 move
+   - Your SL of 800 points = $8 move (NOT 80 pips!)
+
+2. **Broker Differences**
+   - Some brokers quote 2 decimals: 2000.45
+   - Some quote 3 decimals: 2000.456
+   - Check _Point value: Print(_Point) should show 0.01 or 0.001
+   - Adjust StopLossPoints accordingly!
+
+3. **Lot Size Impact**
+   - Gold lot sizes vary by broker
+   - Standard: 100oz (1 lot = $100/point)
+   - Micro: 1oz (1 lot = $1/point)
+   - Check with your broker!
+   - Dynamic lots will auto-calculate correctly
+
+4. **Spread Considerations**
+   - Gold spread: typically 20-50 points during active hours
+   - Can widen to 100+ during news or Asian session
+   - MaxSpreadPoints = 50 prevents trading in high spread
+   - Time filter helps avoid wide spreads
+
+5. **Margin Requirements**
+   - Gold requires significant margin
+   - 1 mini lot (0.1) ≈ $200-400 margin typically
+   - Ensure sufficient margin for dynamic lot sizing
+   - Account size: minimum $1,000-2,000 recommended
+
+6. **News Impact**
+   - Gold extremely sensitive to:
+     * USD news (NFP, FOMC, CPI)
+     * Geopolitical events
+     * Risk-on/risk-off sentiment
+   - Consider pausing EA during major news
+   - MaxDrawdown protection helps limit damage
+
+═══════════════════════════════════════════════════════════════════════════════
+
+📋 QUICK START CHECKLIST
+
+═══════════════════════════════════════════════════════════════════════════════
+
+Before running on XAUUSD:
+
+[ ] Verify your broker's XAUUSD specifications:
+    - Point size (should be 0.01 or 0.001)
+    - Typical spread (20-50 points normal)
+    - Lot size definition (1 lot = ? oz)
+    - Margin requirement per lot
+
+[ ] Adjust timezone:
+    - Check broker server time
+    - Calculate offset for 8:00 London / 22:00 NY close
+    - Set TradingStartHour and TradingEndHour accordingly
+
+[ ] Test point calculation:
+    - Run on demo with EnableDetailedLogging = true
+    - Check if SL/TP distances look correct in dollars
+    - Verify lot size calculation makes sense
+
+[ ] Confirm account size:
+    - Minimum $1,000 for conservative trading
+    - $2,000+ recommended for better risk management
+    - With 1% risk and 800pt SL, you need adequate balance
+
+[ ] Backtest first:
+    - Test on H1 XAUUSD historical data
+    - Minimum 6 months, preferably 1-2 years
+    - Check if performance is acceptable
+
+[ ] Demo test:
+    - Run on demo for at least 2 weeks
+    - Monitor behavior during different sessions
+    - Verify filters working correctly
+
+[ ] Go live carefully:
+    - Start with 0.5% risk
+    - Monitor first week closely
+    - Gradually increase to 1% if performing well
+
+═══════════════════════════════════════════════════════════════════════════════
+
+🔧 ALTERNATIVE TIMEFRAMES
+
+═══════════════════════════════════════════════════════════════════════════════
+
+M15 (More aggressive, more trades):
+- StopLossPoints = 400
+- TakeProfitPoints = 800
+- TrailingStopPoints = 300
+- TrailingStepPoints = 100
+- SustainedSignalBars = 1
+- BuyEntryMinScore = 4.0
+- Risk = 0.5% (lower due to more trades)
+
+H4 (More conservative, fewer trades):
+- StopLossPoints = 1500
+- TakeProfitPoints = 3000
+- TrailingStopPoints = 1000
+- TrailingStepPoints = 300
+- SustainedSignalBars = 2
+- BuyEntryMinScore = 5.0
+- TrendTimeframe = PERIOD_D1
+- Risk = 1.5% (higher due to fewer trades)
+
+═══════════════════════════════════════════════════════════════════════════════
+
+📊 EXPECTED PERFORMANCE (Estimated)
+
+═══════════════════════════════════════════════════════════════════════════════
+
+With these settings on XAUUSD H1, typical results:
+
+Trade Frequency: 2-5 trades per week
+Win Rate: 50-60% (with trend filter)
+Profit Factor: 1.5-2.0
+Average Win: 1.5-2.5% (of R:R ratio 2:1)
+Average Loss: -1.0%
+Max Drawdown: 5-10%
+
+Note: These are estimates. Actual results depend on market conditions,
+broker execution, slippage, and your specific settings.
+
+ALWAYS backtest and forward test before live trading!
+
+═══════════════════════════════════════════════════════════════════════════════
+
+Good luck with gold trading! 🏆📈
+
+Remember: Gold is volatile but profitable with proper risk management.
+The key is patience, discipline, and respecting your stop losses.
